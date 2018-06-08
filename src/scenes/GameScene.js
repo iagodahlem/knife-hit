@@ -3,12 +3,7 @@ import options from '../constants/options'
 
 class GameScene extends Scene {
   constructor() {
-    super('GameScene')
-  }
-
-  preload() {
-    this.load.image('target', './assets/trunk.png')
-    this.load.image('knife', './assets/knife.png')
+    super('game')
   }
 
   create() {

@@ -1,4 +1,6 @@
 import Phaser, { Game } from 'phaser'
+import BootScene from './scenes/BootScene'
+import PreloadScene from './scenes/PreloadScene'
 import GameScene from './scenes/GameScene'
 import './index.css'
 
@@ -9,6 +11,8 @@ window.addEventListener('load', () => {
     height: 1334,
     backgroundColor: '#05424C',
     scene: [
+      BootScene,
+      PreloadScene,
       GameScene,
     ],
   }
