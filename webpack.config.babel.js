@@ -1,8 +1,12 @@
 import HtmlWebPackPlugin from 'html-webpack-plugin'
-import ExtractCssPlugin from 'mini-css-extract-plugin'
+import MiniCSSExtractPlugin from 'mini-css-extract-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 
 export default {
+  output: {
+    filename: '[name].[chunkhash:4].js',
+    chunkFilename: '[name].[chunkhash:4].js',
+  },
   module: {
     rules: [
       {
@@ -24,7 +28,7 @@ export default {
       {
         test: /\.css$/,
         use: [
-          ExtractCssPlugin.loader,
+          MiniCSSExtractPlugin.loader,
           'css-loader'
         ],
       },
@@ -44,8 +48,8 @@ export default {
       template: './public/index.html',
       favicon: './public/favicon.ico',
     }),
-    new ExtractCssPlugin({
-      filename: '[name].css',
+    new MiniCSSExtractPlugin({
+      filename: '[name].[contenthash:4].css',
       chunkFilename: '[id].css',
     }),
     new CopyWebpackPlugin([
