@@ -8,6 +8,7 @@ class GameScene extends Scene {
 
   create() {
     this.canThrow = true
+
     this.knifeGroup = this.add.group()
     this.knife = this.add.sprite(window.game.config.width / 2, window.game.config.height / 5 * 4, 'knife')
 
@@ -22,8 +23,10 @@ class GameScene extends Scene {
     const children = this.knifeGroup.getChildren()
 
     for (let i = 0; i < children.length; i++) {
-      const radians = Phaser.Math.DegToRad(children[i].angle + 90)
       children[i].angle += options.rotationSpeed
+
+      const radians = Phaser.Math.DegToRad(children[i].angle + 90)
+
       children[i].x = this.target.x + (this.target.width / 2) * Math.cos(radians)
       children[i].y = this.target.y + (this.target.width / 2) * Math.sin(radians)
     }
@@ -45,11 +48,38 @@ class GameScene extends Scene {
   }
 
   onCompleteThrowKnife() {
-    const knife = this.add.sprite(this.knife.x, this.knife.y, 'knife')
+    let legalHit = true
+    const children = this.knifeGroup.getChildren()
 
-    this.canThrow = true
-    this.knifeGroup.add(knife)
-    this.knife.y = window.game.config.height / 5 * 4
+    for (let i = 0; i < children.length; i++){
+      const isSameAngle = Math.abs(Phaser.Math.Angle.ShortestBetween(this.target.angle, children[i].impactAngle)) < options.minAngle
+
+      if (isSameAngle) {
+        legalHit = false
+        break;
+      }
+    }
+
+    if (legalHit) {
+      this.canThrow = true
+
+      const knife = this.add.sprite(this.knife.x, this.knife.y, 'knife')
+      knife.impactAngle = this.target.angle
+
+      this.knifeGroup.add(knife)
+      this.knife.y = window.game.config.height / 5 * 4
+    } else {
+      this.tweens.add({
+        targets: [this.knife],
+        y: this.sys.game.config.height + this.knife.height,
+        rotation: 5,
+        duration: options.throwSpeed * 4,
+        callbackScope: this,
+        onComplete: () => {
+          this.scene.start('game')
+        }
+      })
+    }
   }
 }
 
