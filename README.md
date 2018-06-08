@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/iagodahlem/knife-hit.svg?branch=master)](https://travis-ci.org/iagodahlem/knife-hit)
 
-Simple arcade game build up with Phaser 3.
+Knife Hit clone game build up with Phaser 3.
 
 ## Install
 

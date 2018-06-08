@@ -1,34 +1,41 @@
-import Phaser from 'phaser'
+import Phaser, { Game } from 'phaser'
+import GameScene from './scenes/GameScene'
 import './index.css'
 
-const config = {
-  type: Phaser.AUTO,
-  width: 800,
-  height: 600,
-  physics: {
-    default: 'arcade',
-    arcade: {
-      gravity: { y: 300 },
-      debug: false,
-    },
-  },
-  scene: {
-    preload,
-    create,
-    update,
-  },
+window.addEventListener('load', () => {
+  const config = {
+    type: Phaser.AUTO,
+    width: 750,
+    height: 1334,
+    backgroundColor: '#05424C',
+    scene: [
+      GameScene,
+    ],
+  }
+
+  window.game = new Game(config)
+
+  window.focus()
+  bindEvents()
+  resize()
+})
+
+const bindEvents = () => {
+  window.addEventListener('resize', resize, false)
 }
 
-const game = new Phaser.Game(config)
+const resize = () => {
+  const canvas = document.querySelector('canvas')
+  const windowWidth = window.innerWidth
+  const windowHeight = window.innerHeight
+  const windowRatio = windowWidth / windowHeight
+  const gameRatio = window.game.config.width / window.game.config.height
 
-function preload() {
-
-}
-
-function create() {
-
-}
-
-function update() {
-
+  if (windowRatio < gameRatio) {
+    canvas.style.width = `${windowWidth}px`
+    canvas.style.height = `${windowWidth / gameRatio}px`
+  } else {
+    canvas.style.width = `${windowHeight * gameRatio}px`
+    canvas.style.height = `${windowHeight}px`
+  }
 }
