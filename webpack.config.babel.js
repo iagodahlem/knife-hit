@@ -52,4 +52,15 @@ export default {
       { from: 'assets', to: 'assets' },
     ]),
   ],
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        }
+      }
+    }
+  }
 }
