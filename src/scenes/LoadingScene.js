@@ -1,8 +1,8 @@
 import { Scene } from 'phaser'
 
-class PreloadScene extends Scene {
+class LoadingScene extends Scene {
   constructor() {
-    super('preload')
+    super('loading')
   }
 
   preload() {
@@ -35,7 +35,7 @@ class PreloadScene extends Scene {
 
     const updateProgressbar = (percentage) => {
       progressbar.clear()
-      progressbar.fillStyle(0xffffff, 1)
+      progressbar.fillStyle('#ffffff', 1)
       progressbar.fillRect(xStart, yStart, percentage * width, height)
     }
 
@@ -47,4 +47,4 @@ class PreloadScene extends Scene {
   }
 }
 
-export default PreloadScene
+export default LoadingScene

@@ -11,7 +11,7 @@ class BootScene extends Scene {
   }
 
   create() {
-    this.scene.start('preload')
+    this.scene.start('loading')
   }
 }
 
